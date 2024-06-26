@@ -1,7 +1,7 @@
 from CancerPrediction.constants import *
 from CancerPrediction.utils.common import read_yaml, create_directories
 from CancerPrediction.entity.config_entity import (DataIngestionConfig,
-                                                   DataValidationConfig)
+                                                   DataValidationConfig, DataTransformationConfig)
 class ConfigurationManager:
     def __init__(
         self, 
@@ -46,3 +46,18 @@ class ConfigurationManager:
             columns_to_remove=config['columns_to_remove']
         )
         
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config['data_transformation']
+        schema = self.schema['COLUMNS']
+        
+        create_directories([Path(config['root_dir'])])
+        
+        return DataTransformationConfig(
+            root_dir=Path(config['root_dir']),
+            validated_data_file=Path(config['validated_data_file']),
+            transformed_train_data_path=Path(config['transformed_train_data_path']),
+            transformed_test_data_path=Path(config['transformed_test_data_path']),
+            target_column=config['target_column'],
+            ordinal_features=config['ordinal_features'],
+            nominal_features=config['nominal_features']
+        )
