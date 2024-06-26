@@ -1,0 +1,7 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/cancer_detection_data
+  source_URL: https://github.com/kevoa/Zips/raw/main/df6.zip
+  local_data_file: artifacts/cancer_detection_data/data.zip
+  unzip_dir: artifacts/cancer_detection_data
