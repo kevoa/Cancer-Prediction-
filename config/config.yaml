@@ -5,3 +5,16 @@ data_ingestion:
   source_URL: https://github.com/kevoa/Zips/raw/main/df6.zip
   local_data_file: artifacts/cancer_detection_data/data.zip
   unzip_dir: artifacts/cancer_detection_data
+
+data_validation:
+  root_dir: "artifacts/data_validation"
+  data_file: "artifacts/cancer_detection_data/df6.xlsx"
+  status_file: "artifacts/data_validation/status.txt"
+  sequences_to_remove: ["*", "**"]
+  target_column: "Tumor type"
+  columns_to_remove: 
+    - "Unnamed: 0"
+    - "Patient ID #"
+    - "Sample ID #"
+    - "CancerSEEK Test Result"
+    - "CancerSEEK Logistic Regression Score"

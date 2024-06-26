@@ -1,6 +1,7 @@
 from CancerPrediction.constants import *
 from CancerPrediction.utils.common import read_yaml, create_directories
-from CancerPrediction.entity.config_entity import DataIngestionConfig
+from CancerPrediction.entity.config_entity import (DataIngestionConfig,
+                                                   DataValidationConfig)
 class ConfigurationManager:
     def __init__(
         self, 
@@ -27,3 +28,21 @@ class ConfigurationManager:
         )
         
         return data_ingestion_config
+    
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config['data_validation']
+        schema = self.schema['COLUMNS']
+        
+        create_directories([Path(config['root_dir'])])
+        
+        return DataValidationConfig(
+            root_dir=Path(config['root_dir']),
+            STATUS_FILE=config['status_file'],
+            unzip_data_dir=Path(config['data_file']),
+            all_schema=schema,
+            sequences_to_remove=config['sequences_to_remove'],
+            target_column=config['target_column'],
+            columns_to_remove=config['columns_to_remove']
+        )
+        

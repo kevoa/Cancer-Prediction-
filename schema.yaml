@@ -1,1 +1,49 @@
-key: val 
+COLUMNS:
+  "Tumor type": object
+  "AJCC Stage": object
+  "AFP (pg/ml)": float64
+  "Angiopoietin-2 (pg/ml)": float64
+  "AXL (pg/ml)": float64
+  "CA-125 (U/ml)": float64
+  "CA 15-3 (U/ml)": float64
+  "CA19-9 (U/ml)": float64
+  "CD44 (ng/ml)": float64
+  "CEA (pg/ml)": float64
+  "CYFRA 21-1 (pg/ml)": float64
+  "DKK1 (ng/ml)": float64
+  "Endoglin (pg/ml)": float64
+  "FGF2 (pg/ml)": float64
+  "Follistatin (pg/ml)": float64
+  "Galectin-3 (ng/ml)": float64
+  "G-CSF (pg/ml)": float64
+  "GDF15 (ng/ml)": float64
+  "HE4 (pg/ml)": float64
+  "HGF (pg/ml)": float64
+  "IL-6 (pg/ml)": float64
+  "IL-8 (pg/ml)": float64
+  "Kallikrein-6 (pg/ml)": float64
+  "Leptin (pg/ml)": float64
+  "Mesothelin (ng/ml)": float64
+  "Midkine (pg/ml)": float64
+  "Myeloperoxidase (ng/ml)": float64
+  "NSE (ng/ml)": float64
+  "OPG (ng/ml)": float64
+  "OPN (pg/ml)": float64
+  "PAR (pg/ml)": float64
+  "Prolactin (pg/ml)": float64
+  "sEGFR (pg/ml)": float64
+  "sFas (pg/ml)": float64
+  "SHBG (nM)": float64
+  "sPECAM-1 (pg/ml)": float64
+  "Thrombospondin-2 (pg/ml)": float64
+  "TIMP-1 (pg/ml)": float64
+  "Omega score": float64
+  "Sex": object
+  "sHER2/sEGFR2/sErbB2 (pg/ml)": float64
+  "TGFa (pg/ml)": float64
+  "TIMP-2 (pg/ml)": float64
+
+
+TARGET_COLUMN:
+  name: "Tumor type"
+
