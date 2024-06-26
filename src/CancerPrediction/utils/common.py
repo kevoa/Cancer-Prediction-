@@ -12,7 +12,7 @@ from typing import Any
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
-     """
+    """
     Reads a YAML file and returns a ConfigBox type.
 
     Args:
