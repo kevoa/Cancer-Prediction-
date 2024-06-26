@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from mlProject import logger
+from CancerPrediction import logger
 import json
 import joblib
 from ensure import ensure_annotations
@@ -11,7 +11,7 @@ from typing import Any
 
 
 @ensure_annotations
-def read_yaml(path_to_yaml: Path) -> configBox:
+def read_yaml(path_to_yaml: Path) -> ConfigBox:
      """
     Reads a YAML file and returns a ConfigBox type.
 
