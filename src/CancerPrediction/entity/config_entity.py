@@ -30,4 +30,13 @@ class DataTransformationConfig:
     target_column: str
     ordinal_features: List[str]
     nominal_features: List[str]
-    
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    model_name: str
+    important_features: List[str]
+    target_column: str

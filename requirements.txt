@@ -21,4 +21,7 @@ scipy
 seaborn
 umap-learn
 xgboost
--e . 
+ctgan
+torch
+
+-e .

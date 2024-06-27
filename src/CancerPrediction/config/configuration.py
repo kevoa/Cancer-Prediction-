@@ -1,7 +1,7 @@
 from CancerPrediction.constants import *
 from CancerPrediction.utils.common import read_yaml, create_directories
 from CancerPrediction.entity.config_entity import (DataIngestionConfig,
-                                                   DataValidationConfig, DataTransformationConfig)
+                                                   DataValidationConfig, DataTransformationConfig, ModelTrainerConfig)
 class ConfigurationManager:
     def __init__(
         self, 
@@ -61,3 +61,18 @@ class ConfigurationManager:
             ordinal_features=config['ordinal_features'],
             nominal_features=config['nominal_features']
         )
+        
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+            config = self.config['model_trainer']
+            
+            create_directories([Path(config['root_dir'])])
+            
+            return ModelTrainerConfig(
+                root_dir=Path(config['root_dir']),
+                train_data_path=Path(config['train_data_path']),
+                test_data_path=Path(config['test_data_path']),
+                model_name=config['model_name'],
+                important_features=config['important_features'],
+                target_column=config['target_column']
+            )
