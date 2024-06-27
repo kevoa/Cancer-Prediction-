@@ -1,7 +1,7 @@
 from CancerPrediction.constants import *
 from CancerPrediction.utils.common import read_yaml, create_directories
 from CancerPrediction.entity.config_entity import (DataIngestionConfig,
-                                                   DataValidationConfig, DataTransformationConfig, ModelTrainerConfig)
+                                                   DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig)
 class ConfigurationManager:
     def __init__(
         self, 
@@ -64,15 +64,38 @@ class ConfigurationManager:
         
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
-            config = self.config['model_trainer']
-            
-            create_directories([Path(config['root_dir'])])
-            
-            return ModelTrainerConfig(
-                root_dir=Path(config['root_dir']),
-                train_data_path=Path(config['train_data_path']),
-                test_data_path=Path(config['test_data_path']),
-                model_name=config['model_name'],
-                important_features=config['important_features'],
-                target_column=config['target_column']
-            )
+        config = self.config['model_trainer']
+        
+        create_directories([Path(config['root_dir'])])
+        
+        return ModelTrainerConfig(
+            root_dir=Path(config['root_dir']),
+            train_data_path=Path(config['train_data_path']),
+            test_data_path=Path(config['test_data_path']),
+            model_name=config['model_name'],
+            important_features=config['important_features'],
+            target_column=config['target_column']
+        )
+    
+    def get_params(self, model_name: str) -> dict:
+        return self.params.get(model_name, {})
+    
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config['model_evaluation']
+        params = self.params  # Asegurarse de que todos los parámetros estén accesibles aquí
+        
+        create_directories([Path(config['root_dir'])])
+        
+        return ModelEvaluationConfig(
+            root_dir=Path(config['root_dir']),
+            test_data_path=Path(config['test_data_path']),
+            model_path=Path(config['model_path']),
+            metric_file_name=Path(config['metric_file_name']),
+            mlflow_uri=config['mlflow_uri'],
+            mlflow_username=config['mlflow_username'],
+            mlflow_password=config['mlflow_password'],
+            target_column=config['target_column'],
+            important_features=config['important_features'],
+            all_params=params  # Pasar todos los parámetros aquí
+        )

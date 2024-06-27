@@ -58,3 +58,37 @@ model_trainer:
     - 'TIMP-1 (pg/ml)'
     - 'HE4 (pg/ml)'
   target_column: "Tumor type"
+  mlflow_uri: "https://dagshub.com/kevoa/Cancer-Prediction-.mlflow"
+  mlflow_username: "kevoa"
+  mlflow_password: "05ede0b26068798db0131aa3a65a1251ceaa1a4b"
+
+model_evaluation:
+  root_dir: "artifacts/model_evaluation"
+  test_data_path: "artifacts/data_transformation/test_df.xlsx"
+  model_path: "artifacts/model_trainer/model.joblib"
+  metric_file_name: "artifacts/model_evaluation/metrics.json"
+  mlflow_uri: "https://dagshub.com/kevoa/Cancer-Prediction-.mlflow"
+  mlflow_username: "kevoa"
+  mlflow_password: "05ede0b26068798db0131aa3a65a1251ceaa1a4b"
+  target_column: "Tumor type"
+  important_features:
+    - 'sFas (pg/ml)'
+    - 'sHER2/sEGFR2/sErbB2 (pg/ml)'
+    - 'CA 15-3 (U/ml)'
+    - 'CA19-9 (U/ml)'
+    - 'CA-125 (U/ml)'
+    - 'TIMP-2 (pg/ml)'
+    - 'TGFa (pg/ml)'
+    - 'Sex_1'
+    - 'Leptin (pg/ml)'
+    - 'IL-8 (pg/ml)'
+    - 'IL-6 (pg/ml)'
+    - 'AFP (pg/ml)'
+    - 'GDF15 (ng/ml)'
+    - 'Prolactin (pg/ml)'
+    - 'HGF (pg/ml)'
+    - 'CD44 (ng/ml)'
+    - 'Midkine (pg/ml)'
+    - 'Thrombospondin-2 (pg/ml)'
+    - 'TIMP-1 (pg/ml)'
+    - 'HE4 (pg/ml)'

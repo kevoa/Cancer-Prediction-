@@ -1,1 +1,25 @@
-key: val 
+RandomForest:
+  n_estimators: 100
+  max_depth: 5
+
+GradientBoosting:
+  n_estimators: 100
+  learning_rate: 0.06
+  max_depth: 3
+
+LightGBM:
+  n_estimators: 100
+  learning_rate: 0.06
+  num_leaves: 31
+
+XGBoost:
+  n_estimators: 100
+  learning_rate: 0.06
+  max_depth: 3
+
+CTGAN:
+  epochs: 200
+  batch_size: 500
+  discriminator_steps: 1
+  log_frequency: True
+  verbose: True

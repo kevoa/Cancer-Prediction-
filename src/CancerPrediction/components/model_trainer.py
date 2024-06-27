@@ -1,4 +1,3 @@
-
 import os
 import numpy as np
 import pandas as pd
@@ -10,9 +9,10 @@ from imblearn.over_sampling import SMOTE
 from ctgan import CTGAN
 import lightgbm as lgb
 import xgboost as xgb
-from CancerPrediction import logger
+import torch
 from CancerPrediction.entity.config_entity import ModelTrainerConfig
-import torch 
+from CancerPrediction import logger
+import json
 
 def set_seed(seed: int):
     np.random.seed(seed)
@@ -22,32 +22,37 @@ def set_seed(seed: int):
         torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    
-    
+
 class ModelTrainer:
-    def __init__(self, config: ModelTrainerConfig, seed: int = 42):
+    def __init__(self, config: ModelTrainerConfig, params: dict, seed: int = 42):
         self.config = config
+        self.params = params
         self.seed = seed
         set_seed(self.seed)
 
     def train(self):
-        # Cargar datos
+        # Cargar datos de entrenamiento y prueba
         train_data = pd.read_excel(self.config.train_data_path)
+        test_data = pd.read_excel(self.config.test_data_path)
+
+        # Combinar datos de entrenamiento y prueba
+        df_combined = pd.concat([train_data, test_data], axis=0)
 
         # Seleccionar características importantes
-        X_train = train_data[self.config.important_features]
-        y_train = train_data[self.config.target_column]
+        X_real = df_combined[self.config.important_features]
+        y_real = df_combined[self.config.target_column]
 
         # Identificar clases minoritarias
-        class_counts = y_train.value_counts()
+        class_counts = y_real.value_counts()
         minority_classes = class_counts[class_counts < class_counts.median()].index
 
         # Separar datos de clases minoritarias
-        X_minority = X_train[y_train.isin(minority_classes)]
-        y_minority = y_train[y_train.isin(minority_classes)]
+        X_minority = X_real[y_real.isin(minority_classes)]
+        y_minority = y_real[y_real.isin(minority_classes)]
 
         # Entrenar el modelo CTGAN solo con las clases minoritarias
-        model = CTGAN(epochs=200)
+        ctgan_params = self.params['CTGAN']
+        model = CTGAN(**ctgan_params)
         model.fit(X_minority)
 
         # Generar datos sintéticos para las clases minoritarias
@@ -61,8 +66,8 @@ class ModelTrainer:
         y_synthetic = synthetic_data_minority[self.config.target_column]
 
         # Combinar datos reales y datos sintéticos generados
-        X_combined = pd.concat([X_train, X_synthetic], axis=0)
-        y_combined = pd.concat([y_train, y_synthetic], axis=0)
+        X_combined = pd.concat([X_real, X_synthetic], axis=0)
+        y_combined = pd.concat([y_real, y_synthetic], axis=0)
 
         # Aplicar SMOTE para sobremuestrear las clases minoritarias en el conjunto combinado
         smote = SMOTE(random_state=self.seed)
@@ -72,10 +77,10 @@ class ModelTrainer:
         X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=self.seed, stratify=y_resampled)
 
         # Definir los modelos individuales con regularización
-        rf_clf = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=self.seed)
-        gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=self.seed)
-        lgbm_clf = lgb.LGBMClassifier(n_estimators=100, learning_rate=0.1, num_leaves=31, random_state=self.seed)
-        xgb_clf = xgb.XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=self.seed)
+        rf_clf = RandomForestClassifier(random_state=self.seed, **self.params['RandomForest'])
+        gb_clf = GradientBoostingClassifier(random_state=self.seed, **self.params['GradientBoosting'])
+        lgbm_clf = lgb.LGBMClassifier(random_state=self.seed, **self.params['LightGBM'])
+        xgb_clf = xgb.XGBClassifier(random_state=self.seed, **self.params['XGBoost'])
 
         # Definir el Voting Classifier
         voting_clf = VotingClassifier(
@@ -94,4 +99,13 @@ class ModelTrainer:
         # Guardar el modelo entrenado
         joblib.dump(voting_clf, os.path.join(self.config.root_dir, self.config.model_name))
 
-        logger.info(f"Model training completed and saved to {os.path.join(self.config.root_dir, self.config.model_name)}")
+        # Evaluar el modelo
+        y_pred = voting_clf.predict(X_test)
+        print(f"Classification Report:\n {classification_report(y_test, y_pred)}")
+        print(f"Confusion Matrix:\n {confusion_matrix(y_test, y_pred)}")
+
+        # Guardar las características utilizadas para el entrenamiento
+        model_features = X_train.columns.tolist()
+        with open(os.path.join(self.config.root_dir, 'model_features.json'), 'w') as f:
+            json.dump(model_features, f)
+
