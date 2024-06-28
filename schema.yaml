@@ -44,5 +44,6 @@ COLUMNS:
   "TIMP-2 (pg/ml)": float64
 
 
-TARGET_COLUMN: "Tumor type"
+TARGET_COLUMN: 
+name: "Tumor type"
 

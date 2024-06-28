@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Cancer Prediction</title>
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="static/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Cancer Prediction</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header-->
+    <header class="masthead text-white text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Predict Cancer Type</h1>
+                    <span class="subheading">A Cancer Type Prediction Web App</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content-->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7 form-container">
+                <form action="/predict" method="post">
+                    <h2 class="text-center">Please Fill The Information</h2>
+
+                    <!-- Form Fields -->
+                    <div class="form-group">
+                        <label for="sFas">sFas (pg/ml):</label>
+                        <input type="text" name="sFas (pg/ml)" id="sFas" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sHER2">sHER2/sEGFR2/sErbB2 (pg/ml):</label>
+                        <input type="text" name="sHER2/sEGFR2/sErbB2 (pg/ml)" id="sHER2" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CA153">CA 15-3 (U/ml):</label>
+                        <input type="text" name="CA 15-3 (U/ml)" id="CA153" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CA199">CA 19-9 (U/ml):</label>
+                        <input type="text" name="CA19-9 (U/ml)" id="CA199" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CA125">CA-125 (U/ml):</label>
+                        <input type="text" name="CA-125 (U/ml)" id="CA125" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="TIMP2">TIMP-2 (pg/ml):</label>
+                        <input type="text" name="TIMP-2 (pg/ml)" id="TIMP2" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="TGFa">TGFa (pg/ml):</label>
+                        <input type="text" name="TGFa (pg/ml)" id="TGFa" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Leptin">Leptin (pg/ml):</label>
+                        <input type="text" name="Leptin (pg/ml)" id="Leptin" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="IL8">IL-8 (pg/ml):</label>
+                        <input type="text" name="IL-8 (pg/ml)" id="IL8" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="IL6">IL-6 (pg/ml):</label>
+                        <input type="text" name="IL-6 (pg/ml)" id="IL6" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AFP">AFP (pg/ml):</label>
+                        <input type="text" name="AFP (pg/ml)" id="AFP" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="GDF15">GDF15 (ng/ml):</label>
+                        <input type="text" name="GDF15 (ng/ml)" id="GDF15" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Prolactin">Prolactin (pg/ml):</label>
+                        <input type="text" name="Prolactin (pg/ml)" id="Prolactin" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="HGF">HGF (pg/ml):</label>
+                        <input type="text" name="HGF (pg/ml)" id="HGF" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CD44">CD44 (ng/ml):</label>
+                        <input type="text" name="CD44 (ng/ml)" id="CD44" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Midkine">Midkine (pg/ml):</label>
+                        <input type="text" name="Midkine (pg/ml)" id="Midkine" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Thrombospondin2">Thrombospondin-2 (pg/ml):</label>
+                        <input type="text" name="Thrombospondin-2 (pg/ml)" id="Thrombospondin2" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="TIMP1">TIMP-1 (pg/ml):</label>
+                        <input type="text" name="TIMP-1 (pg/ml)" id="TIMP1" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="HE4">HE4 (pg/ml):</label>
+                        <input type="text" name="HE4 (pg/ml)" id="HE4" class="form-control" required>
+                    </div>
+
+                    <div class="form-row-last">
+                        <input type="submit" name="register" class="register btn btn-primary btn-block" value="Predict">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer-->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="text-muted text-center mb-2">© Your Website 2023. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

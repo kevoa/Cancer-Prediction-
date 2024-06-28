@@ -11,20 +11,27 @@ class DataValidationTrainingPipeline:
         pass
     
     def main(self):
+        logger.info(f">>>>> stage {STAGE_NAME} started <<<<<")
+        
         # Inicializar el ConfigurationManager
         config = ConfigurationManager()
+        
+        # Obtener la configuración de validación de datos
         data_validation_config = config.get_data_validation_config()
         
         # Cargar datos desde el archivo de ingestión
         df = pd.read_excel(data_validation_config.unzip_data_dir)
-        logger.info("DataFrame loaded successfully")
+        print("DataFrame loaded successfully:")
+        print(df.head())
         
         # Crear instancia de DataValidation
-        data_validation = DataValidation(df=df, config=data_validation_config)
+        data_validation = DataValidation(df, data_validation_config)
         
         # Ejecutar la validación completa
         df_validated = data_validation.validate()
-        logger.info("Data validation completed successfully")
+        data_validation.save_validated_data()
+        logger.info(f">>>>> stage {STAGE_NAME} completed <<<<<\n\nx==========x")
+    
 
 if __name__ == '__main__':
     try:

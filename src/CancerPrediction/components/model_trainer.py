@@ -1,4 +1,5 @@
 import os
+import json
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
@@ -12,7 +13,6 @@ import xgboost as xgb
 import torch
 from CancerPrediction.entity.config_entity import ModelTrainerConfig
 from CancerPrediction import logger
-import json
 
 def set_seed(seed: int):
     np.random.seed(seed)
@@ -99,13 +99,12 @@ class ModelTrainer:
         # Guardar el modelo entrenado
         joblib.dump(voting_clf, os.path.join(self.config.root_dir, self.config.model_name))
 
+        # Guardar las características importantes utilizadas para el entrenamiento
+        important_features_path = os.path.join(self.config.root_dir, 'important_features.json')
+        with open(important_features_path, 'w') as f:
+            json.dump(self.config.important_features, f)
+
         # Evaluar el modelo
         y_pred = voting_clf.predict(X_test)
         print(f"Classification Report:\n {classification_report(y_test, y_pred)}")
         print(f"Confusion Matrix:\n {confusion_matrix(y_test, y_pred)}")
-
-        # Guardar las características utilizadas para el entrenamiento
-        model_features = X_train.columns.tolist()
-        with open(os.path.join(self.config.root_dir, 'model_features.json'), 'w') as f:
-            json.dump(model_features, f)
-

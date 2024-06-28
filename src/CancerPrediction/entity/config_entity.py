@@ -9,7 +9,6 @@ class DataIngestionConfig:
     local_data_file: Path
     unzip_dir: Path
     
-    
 @dataclass(frozen=True)
 class DataValidationConfig:
     root_dir: Path
@@ -19,6 +18,7 @@ class DataValidationConfig:
     sequences_to_remove: List[str]
     target_column: str
     columns_to_remove: List[str]
+    validated_data_file: Path
     
     
 @dataclass(frozen=True)
@@ -28,9 +28,9 @@ class DataTransformationConfig:
     transformed_train_data_path: Path
     transformed_test_data_path: Path
     target_column: str
-    ordinal_features: List[str]
-    nominal_features: List[str]
-
+    ordinal_features: list
+    nominal_features: list
+    important_features: list
 
 @dataclass(frozen=True)
 class ModelTrainerConfig:

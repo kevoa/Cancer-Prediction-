@@ -43,15 +43,12 @@ class ConfigurationManager:
             all_schema=schema,
             sequences_to_remove=config['sequences_to_remove'],
             target_column=config['target_column'],
-            columns_to_remove=config['columns_to_remove']
+            columns_to_remove=config['columns_to_remove'],
+            validated_data_file=Path(config['validated_data_file'])
         )
         
     def get_data_transformation_config(self) -> DataTransformationConfig:
         config = self.config['data_transformation']
-        schema = self.schema['COLUMNS']
-        
-        create_directories([Path(config['root_dir'])])
-        
         return DataTransformationConfig(
             root_dir=Path(config['root_dir']),
             validated_data_file=Path(config['validated_data_file']),
@@ -59,9 +56,10 @@ class ConfigurationManager:
             transformed_test_data_path=Path(config['transformed_test_data_path']),
             target_column=config['target_column'],
             ordinal_features=config['ordinal_features'],
-            nominal_features=config['nominal_features']
+            nominal_features=config['nominal_features'],
+            important_features=config['important_features']  # Añadir esta línea
         )
-        
+
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         config = self.config['model_trainer']

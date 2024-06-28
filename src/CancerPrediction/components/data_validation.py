@@ -1,6 +1,10 @@
 import os 
 from CancerPrediction import logger
+from dataclasses import dataclass
 import pandas as pd
+from CancerPrediction.utils.common import read_yaml, create_directories
+from CancerPrediction.constants import *
+from pathlib import Path
 from CancerPrediction.entity.config_entity import DataValidationConfig
 
 class DataValidation:
@@ -74,3 +78,7 @@ class DataValidation:
         if not columns_valid:
             raise ValueError("Column validation failed.")
         return self.df
+
+    def save_validated_data(self):
+        self.df.to_excel(self.config.validated_data_file, index=False)
+        print(f"Validated data saved to {self.config.validated_data_file}")

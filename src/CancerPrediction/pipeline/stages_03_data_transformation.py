@@ -1,9 +1,10 @@
 from CancerPrediction.config.configuration import ConfigurationManager
-from CancerPrediction.components.data_validation import DataValidation
-from CancerPrediction import logger
-import pandas as pd
 from CancerPrediction.components.data_transformation import DataTransformation
+import pandas as pd
+from CancerPrediction import logger
 from pathlib import Path
+import logging
+
 
 STAGE_NAME = "Data Transformation stage"
 
@@ -18,18 +19,18 @@ class DataTransformationTrainingPipeline:
                 if status == "True":
                     # Inicializar el ConfigurationManager
                     config = ConfigurationManager()
-
+                    
                     # Obtener la configuración de transformación de datos
                     data_transformation_config = config.get_data_transformation_config()
-
+                    
                     # Cargar datos desde el archivo validado
                     df = pd.read_excel(data_transformation_config.validated_data_file)
                     print("DataFrame loaded successfully:")
                     print(df.head())
-
+                    
                     # Crear instancia de DataTransformation
                     data_transformation = DataTransformation(df, data_transformation_config)
-
+                    
                     # Ejecutar la transformación completa
                     data_transformation.transform()
                     print("Transformation stage completed successfully")
@@ -37,7 +38,8 @@ class DataTransformationTrainingPipeline:
                 else:
                     raise Exception("Your data schema is not valid")
         except Exception as e:
-            print(e)
+            logger.error(e)
+            raise e
 
 if __name__ == '__main__':
     try:
