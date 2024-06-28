@@ -19,19 +19,37 @@
 # How to run?
 ### STEPS:
 
-Clone the repository
-
+Clonar el repositorio 
 ```bash
 https://github.com/kevoa/Cancer-Prediction-
 ```
 ### STEP 01- Create a conda environment after opening the repository
 
 ```bash
+# Windows 
+
+# Crear el entorno conda
 conda create -n myenv python=3.12.4 -y
+
+# Inicializar conda en bash (si es necesario)
+conda init bash
+
+# Cierra y vuelve a abrir Git Bash
+
+# Activar el entorno conda
+conda activate myenv
+
 ```
 
 ```bash
+
+#MAC/Linux 
+# Crear el entorno conda
+conda create -n myenv python=3.12.4 -y
+
+# Activar el entorno conda
 conda activate myenv
+
 ```
 
 
@@ -48,7 +66,8 @@ python app.py
 
 Now,
 ```bash
-open up you local host and port
+open up you local host and port 
+
 ```
 
 
