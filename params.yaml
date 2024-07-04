@@ -23,3 +23,11 @@ CTGAN:
   discriminator_steps: 1
   log_frequency: True
   verbose: True
+
+
+CTGAN:
+  epochs: 200
+  batch_size: 500
+  discriminator_steps: 1
+  log_frequency: True
+  verbose: True
