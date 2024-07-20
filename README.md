@@ -26,31 +26,11 @@ https://github.com/kevoa/Cancer-Prediction-
 ### STEP 01- Create a conda environment after opening the repository
 
 ```bash
-# Windows 
+# Git
+source myenv/Scripts/activate
+pip install requirements.txt 
 
-# Crear el entorno conda
-conda create -n myenv python=3.12.4 -y
-
-# Inicializar conda en bash (si es necesario)
-conda init bash
-
-# Cierra y vuelve a abrir Git Bash
-
-# Activar el entorno conda
-conda activate myenv
-
-```
-
-```bash
-
-#MAC/Linux 
-# Crear el entorno conda
-conda create -n myenv python=3.12.4 -y
-
-# Activar el entorno conda
-conda activate myenv
-
-```
+#
 
 
 ### STEP 02- install the requirements
