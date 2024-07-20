@@ -35,7 +35,7 @@ def predict():
             obj = PredictionPipeline()
             prediction = obj.predict(data)
 
-            return render_template('results.html', prediction=prediction[0])  # Asegúrate de que la predicción se renderice correctamente
+            return render_template('results.html', prediction=prediction[0])  
 
         except Exception as e:
             print('The Exception message is: ', e)
